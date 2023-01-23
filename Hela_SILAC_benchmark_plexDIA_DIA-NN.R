@@ -1,20 +1,8 @@
 ##Load the necessary packages
 library(tidyverse)
 library(BiocManager)
-#library(RColorBrewer)
-#library(ggalt)
-#library(ggExtra)
-#library(ggpubr)
 library(cowplot)
-#library(pheatmap)
-#library(dendextend)
-#library(ggthemes)
-#library(Hmisc)
-#library(PTXQC)
-#library(Biostrings)
-#library(matrixStats)
 library(data.table)
-#library(diann)
 library(readxl)
 library(iq)
 
@@ -426,7 +414,7 @@ samplecomp <- read_xlsx("AAAR12_sample_composition.xlsx")
 samp <- ggplot(data = samplecomp, aes(fill = `channel`, x = `sample`, y = `composition`, label = `label`), ) + 
   geom_col(alpha = 0.9, show.legend = FALSE) + 
   geom_text(position = position_stack(vjust = .5), size = 5) + scale_fill_brewer(palette = "Set2") +
-  xlab("") + ylab("labeled Hela lysate [µg]") + theme_bw() + theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
+  xlab("") + ylab("labeled Hela lysate [Âµg]") + theme_bw() + theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
                                                                    axis.text.x = element_text(size = 14, color = "black"), axis.text.y = element_text(color="black", size=14), 
                                                                    axis.title.y = element_text(color="black", size=14, face="bold"), legend.position = c(0.45,0.80), strip.text = element_text(size = 14, face = "bold"),
                                                                    legend.text = element_text(size = 14), legend.title = element_blank(), legend.background = element_blank())
