@@ -1,2 +1,2 @@
 # QuaNPA
-this repository contains R-scripts, which were used for the analysis of nascent proteome data, generated with the QuaNPA worklfow.
+This repository contains R-scripts and files, which were used for the analysis of the data, presented in the manuscript describing the QuaNPA workflow.
