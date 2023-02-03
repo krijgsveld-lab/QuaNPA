@@ -122,4 +122,4 @@ no_dup_ChIP <- no_dup_ChIP[with(no_dup_ChIP, order(`signalValue`, decreasing = T
 top_500_ChIP <- head(no_dup_ChIP, n = 500) # select top 500 STAT1 targets according to ChIP peak size
 
 # save table of top 500 STAT1 ChIP targets
-write_tsv(top_500_ChIP, "Hela_24h_IFNg_top_500_ChIP.tsv")
+write_tsv(top_500_ChIP, "Hela_30min_IFNg_top_500_ChIP.tsv")
