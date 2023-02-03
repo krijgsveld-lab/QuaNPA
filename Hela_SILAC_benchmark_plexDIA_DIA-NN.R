@@ -10,6 +10,8 @@ library(iq)
 setwd("~ your working directory and path to relevant files/")
 getwd()
 
+###  raw data and DIA-NN output tables are available via PRIDE Id PXD039578 - processed protein level quant tables are in the zip folder !
+
 # import data and process
 p_translated <- read_tsv(file = "report.pr_matrix_channels_ms1_translated.tsv") # MS1-based quantification
 p_translated <- p_translated[!grepl("Cont_", p_translated$Protein.Ids),] # remove contaminants
