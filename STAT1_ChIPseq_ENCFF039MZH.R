@@ -117,3 +117,9 @@ STAT1_ChIPseq_targets <- ChIP_prom_df[,c("symbol","ensembl","signalValue")]
 write_tsv(STAT1_ChIPseq_targets, "STAT1_ChIPseq_targets.tsv")
 STAT1_ChIPseq_targets <- read_tsv(file = "STAT1_ChIPseq_targets.tsv")
 
+no_dup_ChIP <- aggregate(data = STAT1_ChIPseq_targets, `signalValue` ~ `symbol`, FUN = max, na.rm = TRUE) # max signalValue for gene
+no_dup_ChIP <- no_dup_ChIP[with(no_dup_ChIP, order(`signalValue`, decreasing = TRUE)),]
+top_500_ChIP <- head(no_dup_ChIP, n = 500) # select top 500 STAT1 targets according to ChIP peak size
+
+# save table of top 500 STAT1 ChIP targets
+write_tsv(top_500_ChIP, "Hela_24h_IFNg_top_500_ChIP.tsv")
