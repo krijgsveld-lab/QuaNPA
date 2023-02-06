@@ -1,35 +1,16 @@
 ##Load the necessary packages
 library(tidyverse)
 library(BiocManager)
-#library(GGally)
 library(ggrepel)
 library(reshape2)
 library(naniar)
-#library(limma)
 library(RColorBrewer)
-#library(msigdbr)
-#library(GOSemSim)
-#library(enrichplot)
 library(ggalt)
 library(ggExtra)
 library(ggpubr)
 library(cowplot)
-#library(pheatmap)
-#library(dendextend)
-#library(Rtsne)
-#library(eulerr)
-#library(rje)
-#library(DEqMS)
-#library(plyr)
-#library(pathview)
-#library(BiocParallel)
-#library(ggthemes)
-#library(Hmisc)
 library(Biostrings)
-#library(matrixStats)
-#library(eulerr)
 library(Biostrings)
-#library(DOSE)
 library(readxl)
 library(Peptides)
 
@@ -208,7 +189,7 @@ p_meds <- aggregate(evidence_f$`SILAC_enrich`, by = list(evidence_f$`input`), FU
 SILAC_violin <- ggplot(data = evidence_f, aes(x = as.factor(`input`), y = log2(`SILAC_enrich`))) +
   geom_hline(yintercept = 0, linetype="dashed", color = "black", size = 0.25) +
   geom_violin(aes(fill = as.factor(`input`)), show.legend = FALSE) + geom_boxplot(aes(fill = as.factor(`input`)), width = 0.2, show.legend = FALSE, outlier.size = -1) + 
-  theme_bw() + xlab("bead volume [µL]") + ylab("log2(labeled-/unlabeled\nprecursor intensity)") + scale_y_continuous(limits = c(min(log2(evidence_f$SILAC_enrich)), max(log2(evidence_f$SILAC_enrich), na.rm = T)+2)) +
+  theme_bw() + xlab("bead volume [ç„¡]") + ylab("log2(labeled-/unlabeled\nprecursor intensity)") + scale_y_continuous(limits = c(min(log2(evidence_f$SILAC_enrich)), max(log2(evidence_f$SILAC_enrich), na.rm = T)+2)) +
   scale_fill_manual(values = greens) +
   geom_text(data = p_meds, aes(x = as.factor(`Group.1`), y = max(log2(evidence_f$SILAC_enrich), na.rm = T)+1, label = round(log2(`x`), digits = 2)), size = 5, vjust = 0.5, angle = 0) +
   theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
@@ -276,7 +257,7 @@ ident_prec <- ggplot() +
   geom_jitter(data = jitter_full, aes(x = as.factor(`input`), y = `n`, shape = `class`), position = position_jitter(width = 0.25), show.legend = FALSE, size = 3, alpha = 0.4) +
   geom_text(data = full_meds %>% dplyr::filter(`class` == "a"), aes(x = as.factor(`input`), label = round(n, digits = 0), y = 10000), vjust = 0.5, size = 5, color = "black", angle = 90) +
   geom_text(data = full_meds %>% dplyr::filter(`class` == "b"), aes(x = as.factor(`input`), label = round(n, digits = 0), y = 25750), vjust = 0.5, size = 5, color = "black", angle = 90) +
-  ylab("number of precursors") + xlab("bead volume [µL]") + theme_bw() +
+  ylab("number of precursors") + xlab("bead volume [ç„¡]") + theme_bw() +
   scale_fill_manual(values = greens) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         axis.text.x = element_text(vjust = 0.5, color = "black", size=14, angle = 0, hjust = 0.5),
@@ -305,7 +286,7 @@ quant_prot <- ggplot() +
   geom_col(data = p_meds, aes(x = as.factor(`input`), y = n, fill = as.factor(`input`)), color = "black", position = "dodge", show.legend = FALSE) +
   geom_jitter(data = prot_n, aes(x = as.factor(`input`), y = `quantified_proteins`), position = position_jitter(width = 0.25), show.legend = FALSE, size = 3, alpha = 0.4) +
   geom_text(data = table_merg_f2, aes(x = as.factor(`input`), label = round((..count..)/2, digits = 0), y = (..count..)/2), stat= "count", hjust = 1.5, size = 5, color = "black", angle = 90) +
-  ylab("quantified protein groups") + xlab("bead volume [µL]") + theme_bw() +  scale_fill_manual(values = greens) +
+  ylab("quantified protein groups") + xlab("bead volume [ç„¡]") + theme_bw() +  scale_fill_manual(values = greens) +
   scale_fill_manual(values = greens) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         axis.text.x = element_text(color = "black", size = 14),
@@ -314,7 +295,7 @@ quant_prot
 
 accur_prot <- ggplot() +
   geom_boxplot(data = table_merg_f2, aes(x = as.factor(`input`), y = log2(`Ratio_norm_H/M`), fill = as.factor(`input`)), show.legend = FALSE, outlier.alpha = 0.15) +
-  ylab("protein group\nlog2(SILAC H/M)") + xlab("bead volume [µL]") + theme_bw() +  scale_fill_manual(values = greens) + ylim(-6,6) +
+  ylab("protein group\nlog2(SILAC H/M)") + xlab("bead volume [ç„¡]") + theme_bw() +  scale_fill_manual(values = greens) + ylim(-6,6) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         axis.text.x = element_text(color = "black", size = 14),
         axis.text.y = element_text(color = "black", size = 14), axis.title.y = element_text(color = "black", size = 14, face = "bold"))
@@ -337,7 +318,7 @@ p_meds <- aggregate(stats_l$`cv`, by = list(stats_l$`sample`), FUN = median, na.
 
 CV <- ggplot(data = stats_l, aes(x = as.factor(`sample`), y = `cv`)) +
   geom_boxplot(aes(fill = as.factor(`sample`)), color = "black", show.legend = FALSE, outlier.alpha = 0.15) + 
-  theme_bw() + xlab("bead volume [µL]") + ylab("protein group CV [%]") + scale_y_continuous(limits = c(-12.5,150)) +
+  theme_bw() + xlab("bead volume [ç„¡]") + ylab("protein group CV [%]") + scale_y_continuous(limits = c(-12.5,150)) +
   scale_fill_manual(values = greens) +
   geom_text(data = p_meds, aes(x = as.factor(`Group.1`), y = -7.5, label = round(`x`, digits = 2)), size = 5, angle = 0) +
   theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
@@ -380,7 +361,7 @@ p_meds <- aggregate(evidence_f$`SILAC_enrich`, by = list(evidence_f$`input`), FU
 SILAC_violin <- ggplot(data = evidence_f, aes(x = as.factor(`input`), y = log2(`SILAC_enrich`))) +
   geom_hline(yintercept = 0, linetype="dashed", color = "black", size = 0.25) +
   geom_violin(aes(fill = as.factor(`input`)), show.legend = FALSE) + geom_boxplot(aes(fill = as.factor(`input`)), width = 0.2, show.legend = FALSE, outlier.size = -1) + 
-  theme_bw() + xlab("protein input [µg]") + ylab("log2(labeled-/unlabeled\nprecursor intensity)") + scale_y_continuous(limits = c(min(log2(evidence_f$SILAC_enrich)), max(log2(evidence_f$SILAC_enrich), na.rm = T)+2)) +
+  theme_bw() + xlab("protein input [ç—¢]") + ylab("log2(labeled-/unlabeled\nprecursor intensity)") + scale_y_continuous(limits = c(min(log2(evidence_f$SILAC_enrich)), max(log2(evidence_f$SILAC_enrich), na.rm = T)+2)) +
   scale_fill_manual(values = blues) +
   geom_text(data = p_meds, aes(x = as.factor(`Group.1`), y = max(log2(evidence_f$SILAC_enrich), na.rm = T)+1, label = round(log2(`x`), digits = 2)), size = 5, vjust = 0.5, angle = 0) +
   theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
@@ -404,7 +385,7 @@ quant_prec <- ggplot() +
   geom_path(data = all_precursors_agg, aes(x = `input`, y = `n`, color = as.factor(`class`), group = `class`), show.legend = FALSE, size = 1.5, alpha = 0.7) +
   geom_jitter(data = all_precursors_agg, aes(x = `input`, y = `n`, color = as.factor(`class`), shape = as.factor(`class`), group = `class`), position = position_jitter(width = 0.1), show.legend = TRUE, size = 3, alpha = 0.6) +
   geom_text_repel(data = p_meds, aes(x = `input`, label = round(n, digits = 0), y = `n`), vjust = 0.5, size = 5, color = "black", angle = 90) +
-  ylab("number of precursors") + xlab("protein input [µg]") + theme_bw() + scale_shape_manual(values = c(19,17)) +
+  ylab("number of precursors") + xlab("protein input [ç—¢]") + theme_bw() + scale_shape_manual(values = c(19,17)) +
   scale_color_distiller(palette = "Blues", direction = 1) +theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         axis.text.x = element_text(color = "black", size = 14), legend.position = c(0.5,0.15), legend.background = element_blank(), legend.text = element_text(size = 14), legend.title = element_blank(),
         #axis.text.x = element_text(vjust = 0.5, color = "black", size=14, face = "bold", angle = 0, hjust = 0.5),
@@ -416,7 +397,7 @@ ggplot() +
   geom_point(data = all_precursors_agg, aes(x = as.numeric(`input`), y = `n`, color = `input`), show.legend = FALSE, size = 3, alpha = 1.0) +
   geom_point(data = all_precursors_agg, aes(x = as.numeric(`input`), y = `n`), show.legend = FALSE, size = 3, alpha = 0.8, shape = 1, color = "black") +
   geom_text_repel(data = p_meds, aes(x = as.numeric(`input`), label = round(`n`, digits = 0), y = round(`n`, digits = 0)), hjust = 1.5, size = 5, color = "black", angle = 90) +
-  ylab("quantified precursors") + xlab("protein input [µg]") + theme_bw() +
+  ylab("quantified precursors") + xlab("protein input [ç—¢]") + theme_bw() +
   scale_color_distiller(palette = "Blues", direction = 1) + #ylim(c(0,3700)) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         legend.position = c(0.5,0.15), legend.background = element_blank(), legend.text = element_text(size = 14), legend.title = element_blank(),
@@ -447,7 +428,7 @@ quant_prot <- ggplot() +
   geom_point(data = prot_n, aes(x = as.numeric(`input`), y = `quantified_proteins`, color = `input`), show.legend = FALSE, size = 3, alpha = 1.0) +
   geom_point(data = prot_n, aes(x = as.numeric(`input`), y = `quantified_proteins`), show.legend = FALSE, size = 3, alpha = 0.8, shape = 1, color = "black") +
   geom_text_repel(data = table_merg_f2, aes(x = as.numeric(`input`), label = round((..count..)/2, digits = 0), y = (..count..)/2), stat= "count", hjust = 1.5, size = 5, color = "black", angle = 90) +
-  ylab("quantified protein groups") + xlab("protein input [µg]") + theme_bw() + #scale_shape_manual(values = c(19,17)) +
+  ylab("quantified protein groups") + xlab("protein input [ç—¢]") + theme_bw() + #scale_shape_manual(values = c(19,17)) +
   scale_color_distiller(palette = "Blues", direction = 1) + ylim(c(0,3700)) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         legend.position = c(0.5,0.15), legend.background = element_blank(), legend.text = element_text(size = 14), legend.title = element_blank(),
@@ -457,7 +438,7 @@ quant_prot
 
 accur_prot <- ggplot() +
   geom_boxplot(data = table_merg_f2, aes(x = as.factor(`input`), y = log2(`Ratio_norm_H/M`), fill = as.factor(`input`)), show.legend = FALSE, outlier.alpha = 0.15) +
-  ylab("protein group\nlog2(SILAC H/M)") + xlab("protein input [µg]") + theme_bw() +  scale_fill_manual(values = blues) + ylim(-4,4) +
+  ylab("protein group\nlog2(SILAC H/M)") + xlab("protein input [ç—¢]") + theme_bw() +  scale_fill_manual(values = blues) + ylim(-4,4) +
   theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
         axis.text.x = element_text(color = "black", size = 14),
         axis.text.y = element_text(color = "black", size = 14), axis.title.y = element_text(color = "black", size = 14, face = "bold"))
@@ -480,7 +461,7 @@ p_meds <- aggregate(stats_l$`cv`, by = list(stats_l$`sample`), FUN = median, na.
 
 CV <- ggplot(data = stats_l, aes(x = as.factor(`sample`), y = `cv`)) +
   geom_boxplot(aes(fill = as.factor(`sample`)), color = "black", show.legend = FALSE, outlier.alpha = 0.15) + 
-  theme_bw() + xlab("protein input [µg]") + ylab("protein group CV [%]") + scale_y_continuous(limits = c(-25,100)) +
+  theme_bw() + xlab("protein input [ç—¢]") + ylab("protein group CV [%]") + scale_y_continuous(limits = c(-25,100)) +
   scale_fill_manual(values = blues) +
   geom_text(data = p_meds, aes(x = as.factor(`Group.1`), y = -7.5, label = round(`x`, digits = 1)), size = 5, angle = 0) +
   theme(plot.title = element_text(color="black", size=12, face= "bold"), axis.title.x = element_text(color="black", size=14, face= "bold"),
