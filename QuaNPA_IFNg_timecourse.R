@@ -232,7 +232,16 @@ quant_prot <- ggplot() +
 
 quant_prot
 
+# median norm
+prot_silac_median <- aggregate(data = prot_SILAC_agg_f, `num_ratio` ~ perc + sample + ratio + Experiment, FUN = median, na.rm = TRUE) # median normalization of samples by subtraction of median
+prot_silac_median <- rename(prot_silac_median, c('num_ratio' = 'median'))
+prot_SILAC_agg_f <- full_join(prot_SILAC_agg_f, prot_silac_median)
+prot_SILAC_agg_f$num_ratio <- 2^(log2(prot_SILAC_agg_f$num_ratio)-log2(prot_SILAC_agg_f$median))
+prot_SILAC_agg_f <- prot_SILAC_agg_f[,-8]
 
+check_median_step1 <- aggregate(data = prot_SILAC_agg_f, `num_ratio` ~ perc + sample + ratio, FUN = median, na.rm = TRUE) # check if median norm or scaling to ratio 1 worked
+
+# continue downstream processing
 prot_lf <- prot_SILAC_agg_f %>% dplyr::filter(`ratio` == "H/M") # select H/M SILAC ratios for quant comparison of IFNg treated cells / BSA control cells
 prot_lf$log2FC <- log2(prot_lf$`num_ratio`)
 
