@@ -382,17 +382,6 @@ colnames(p_meds) <- c("input","n")
 p_meds$class <- rep("quantified")
 
 quant_prec <- ggplot() +
-  geom_path(data = all_precursors_agg, aes(x = `input`, y = `n`, color = as.factor(`class`), group = `class`), show.legend = FALSE, size = 1.5, alpha = 0.7) +
-  geom_jitter(data = all_precursors_agg, aes(x = `input`, y = `n`, color = as.factor(`class`), shape = as.factor(`class`), group = `class`), position = position_jitter(width = 0.1), show.legend = TRUE, size = 3, alpha = 0.6) +
-  geom_text_repel(data = p_meds, aes(x = `input`, label = round(n, digits = 0), y = `n`), vjust = 0.5, size = 5, color = "black", angle = 90) +
-  ylab("number of precursors") + xlab("protein input [痢]") + theme_bw() + scale_shape_manual(values = c(19,17)) +
-  scale_color_distiller(palette = "Blues", direction = 1) +theme(plot.title = element_text(color="black", size=16, face= "bold"), axis.title.x = element_text(color = "black", size = 14, face = "bold"),
-        axis.text.x = element_text(color = "black", size = 14), legend.position = c(0.5,0.15), legend.background = element_blank(), legend.text = element_text(size = 14), legend.title = element_blank(),
-        #axis.text.x = element_text(vjust = 0.5, color = "black", size=14, face = "bold", angle = 0, hjust = 0.5),
-        axis.text.y = element_text(color = "black", size = 14), axis.title.y = element_text(color = "black", size = 14, face = "bold"))
-quant_prec
-
-ggplot() +
   geom_path(data = p_meds, aes(x = as.numeric(`input`), y = `n`, group = `class`), show.legend = FALSE, size = 1.5, alpha = 0.4, color = "black") +
   geom_point(data = all_precursors_agg, aes(x = as.numeric(`input`), y = `n`, color = `input`), show.legend = FALSE, size = 3, alpha = 1.0) +
   geom_point(data = all_precursors_agg, aes(x = as.numeric(`input`), y = `n`), show.legend = FALSE, size = 3, alpha = 0.8, shape = 1, color = "black") +
@@ -403,6 +392,7 @@ ggplot() +
         legend.position = c(0.5,0.15), legend.background = element_blank(), legend.text = element_text(size = 14), legend.title = element_blank(),
         axis.text.x = element_text(vjust = 0.5, color = "black", size=14, angle = 0, hjust = 0.5),
         axis.text.y = element_text(color = "black", size = 14), axis.title.y = element_text(color = "black", size = 14, face = "bold"))
+quant_prec
 
 ## subset protein group, protein level data to exclude MAA bead dilution data in this section
 table_merg_f <- read_tsv(file = "table_merg_f.tsv")
