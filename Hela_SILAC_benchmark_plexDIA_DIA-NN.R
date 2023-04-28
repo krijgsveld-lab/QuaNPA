@@ -13,7 +13,7 @@ getwd()
 ###  raw data and DIA-NN output tables are available via PRIDE Id PXD039578 - processed protein level quant tables are in the zip folder !
 
 # import data and process
-p_translated <- read_tsv(file = "report.pr_matrix_channels_ms1_translated.tsv") # MS1-based quantification
+p_translated <- read_tsv(file = "report-first-pass.pr_matrix_channels_ms1_translated.tsv") # MS1-based quantification
 p_translated <- p_translated[!grepl("Cont_", p_translated$Protein.Ids),] # remove contaminants
 
 # subset and label for each SILAC channel
@@ -129,7 +129,7 @@ prot_SILAC_DIA_m2_MS1$quant <- rep("MS1")
 
 
 # repeat processing for MS2 based quant data
-p_translated <- read_tsv(file = "report.pr_matrix_channels_translated.tsv") # MS2-based quantification
+p_translated <- read_tsv(file = "report-first-pass.pr_matrix_channels_translated.tsv") # MS2-based quantification
 p_translated <- p_translated[!grepl("Cont_", p_translated$Protein.Ids),] # remove contaminants
 
 # subset and label for each SILAC channel
@@ -166,7 +166,7 @@ write_tsv(prec_S[,c("Protein.Ids","Genes","Precursor.Id","Experiment","precursor
 # use iq R package to calculate protein level MaxLFQ values for the different SILAC channels
 # MS2 quant - works better with median normalization in this benchmark
 process_long_format("all_precursors_ldf_MS2.tsv", output_filename = "iq_pg_proc_MS2.tsv", primary_id = "Protein.Ids", secondary_id = c("Precursor.Id"), annotation_col = c("Genes"), 
-                    intensity_col_sep = ";", sample_id = "Experiment", intensity_col = "precursor_translated", normalization = "median", filter_double_less = NULL)
+                    intensity_col_sep = ";", sample_id = "Experiment", intensity_col = "precursor_translated", normalization = "none", filter_double_less = NULL)
 
 # import protein level quant data
 prot_lfq <- read_tsv("iq_pg_proc_MS2.tsv")
