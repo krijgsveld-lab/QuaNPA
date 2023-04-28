@@ -164,7 +164,7 @@ write_tsv(prec_S[,c("Protein.Ids","Genes","Precursor.Id","Experiment","precursor
 
 
 # use iq R package to calculate protein level MaxLFQ values for the different SILAC channels
-# MS2 quant - works better with median normalization in this benchmark
+# MS2 quant - works better without median normalization in this benchmark
 process_long_format("all_precursors_ldf_MS2.tsv", output_filename = "iq_pg_proc_MS2.tsv", primary_id = "Protein.Ids", secondary_id = c("Precursor.Id"), annotation_col = c("Genes"), 
                     intensity_col_sep = ";", sample_id = "Experiment", intensity_col = "precursor_translated", normalization = "none", filter_double_less = NULL)
 
